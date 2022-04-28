@@ -1,101 +1,154 @@
 import React from "react";
 import { Link } from "gatsby";
-import github from "../img/github-icon.svg";
-import logo from "../img/logo.svg";
+import sprite from "../img/lmk-sprite.png";
+import SpriteScroller from "../components/SpriteScroller";
+import { Tween, ScrollTrigger, Timeline } from "react-gsap";
 
 const Navbar = class extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      active: false,
-      navBarActiveClass: "",
-    };
-  }
+	constructor(props) {
+		super(props);
+		this.state = {
+			active: false,
+			navBarActiveClass: "",
+			spriteProgress: 0,
+		};
+	}
 
-  toggleHamburger() {
-    // toggle the active boolean in the state
-    this.setState(
-      {
-        active: !this.state.active,
-      },
-      // after state has been updated,
-      () => {
-        // set the class in state for the navbar accordingly
-        this.state.active
-          ? this.setState({
-              navBarActiveClass: "is-active",
-            })
-          : this.setState({
-              navBarActiveClass: "",
-            });
-      }
-    );
-  }
+	toggleHamburger() {
+		// toggle the active boolean in the state
+		this.setState(
+			{
+				active: !this.state.active,
+			},
+			// after state has been updated,
+			() => {
+				// set the class in state for the navbar accordingly
+				this.state.active
+					? this.setState({
+							navBarActiveClass: "is-active",
+					  })
+					: this.setState({
+							navBarActiveClass: "",
+					  });
+			}
+		);
+	}
 
-  render() {
-    return (
-      <nav
-        className="navbar is-transparent"
-        role="navigation"
-        aria-label="main-navigation"
-      >
-        <div className="container">
-          <div className="navbar-brand">
-            <Link to="/" className="navbar-item" title="Logo">
-              <img src={logo} alt="Kaldi" style={{ width: "88px" }} />
-            </Link>
-            {/* Hamburger menu */}
-            <div
-              className={`navbar-burger burger ${this.state.navBarActiveClass}`}
-              data-target="navMenu"
-              role="menuitem"
-              tabIndex={0}
-              onKeyPress={() => this.toggleHamburger()}
-              onClick={() => this.toggleHamburger()}
-            >
-              <span />
-              <span />
-              <span />
-            </div>
-          </div>
-          <div
-            id="navMenu"
-            className={`navbar-menu ${this.state.navBarActiveClass}`}
-          >
-            <div className="navbar-start has-text-centered">
-              <Link className="navbar-item" to="/about">
-                About
-              </Link>
-              <Link className="navbar-item" to="/products">
-                Products
-              </Link>
-              <Link className="navbar-item" to="/blog">
-                Blog
-              </Link>
-              <Link className="navbar-item" to="/contact">
-                Contact
-              </Link>
-              <Link className="navbar-item" to="/contact/examples">
-                Form Examples
-              </Link>
-            </div>
-            <div className="navbar-end has-text-centered">
-              <a
-                className="navbar-item"
-                href="https://github.com/netlify-templates/gatsby-starter-netlify-cms"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <span className="icon">
-                  <img src={github} alt="Github" />
-                </span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </nav>
-    );
-  }
+	render() {
+		return (
+			<ScrollTrigger
+        trigger="main"
+				start="top top"
+				end="+=50%"
+				scrub
+				onUpdate={(self) =>
+					this.setState({ spriteProgress: self.progress.toFixed(3) })
+				}
+			>
+				<Timeline
+					target={
+						<nav
+							className="navbar is-fixed-top"
+							role="navigation"
+							aria-label="main-navigation"
+						>
+							<div className="container">
+								<div
+									id="navMenuLeft"
+									className={`navbar-menu ${this.state.navBarActiveClass} ${this.state.active && "is-hidden"} `}
+								>
+									<div className="navbar-start has-text-centered">
+										<Link
+											className="navbar-item"
+											to="/about"
+										>
+											Quicklink
+										</Link>
+										<Link
+											className="navbar-item"
+											to="/products"
+										>
+											Quicklink
+										</Link>
+										<Link
+											className="navbar-item"
+											to="/blog"
+										>
+											Quicklink
+										</Link>
+									</div>
+								</div>
+								<div className="navbar-brand m-0 pt-1">
+									<Link
+										to="/"
+										className="navbar-item"
+										title="Logo"
+									>
+										<SpriteScroller
+											sprite={sprite}
+											nframes={143}
+											width="13rem"
+											aspectRatio={533 / 134}
+											progress={this.state.spriteProgress}
+										/>
+									</Link>
+									{/* Hamburger menu */}
+									<div
+										className={`navbar-burger burger ${this.state.navBarActiveClass}`}
+										data-target="navMenu"
+										role="menuitem"
+										tabIndex={0}
+										onKeyPress={() =>
+											this.toggleHamburger()
+										}
+										onClick={() => this.toggleHamburger()}
+									>
+										<span />
+										<span />
+										<span />
+									</div>
+								</div>
+								<div
+									id="navMenuRight"
+									className={`navbar-menu ${this.state.navBarActiveClass} `}
+								>
+									<div className="navbar-end has-text-centered">
+										<Link
+											className="navbar-item"
+											to="/about"
+										>
+											Mission
+										</Link>
+										<Link
+											className="navbar-item"
+											to="/products"
+										>
+											The Team
+										</Link>
+										<Link
+											className="navbar-item"
+											to="/blog"
+										>
+											Newsroom
+										</Link>
+										<Link
+											className="navbar-item"
+											to="/contact"
+										>
+											Contact
+										</Link>
+									</div>
+								</div>
+							</div>
+						</nav>
+					}
+				>
+					<Tween from={{ autoAlpha: 0, duration: 1 }} />
+					<Tween from={{ duration: 10 }} />
+				</Timeline>
+			</ScrollTrigger>
+		);
+	}
 };
 
 export default Navbar;

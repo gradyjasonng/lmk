@@ -2,11 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link, graphql } from "gatsby";
 import { getImage } from "gatsby-plugin-image";
-
 import Layout from "../components/Layout";
 import Features from "../components/Features";
 import BlogRoll from "../components/BlogRoll";
-import FullWidthImage from "../components/FullWidthImage";
+import FramedFullScreenImage from "../components/FramedFullScreenImage";
 
 // eslint-disable-next-line
 export const IndexPageTemplate = ({
@@ -22,7 +21,8 @@ export const IndexPageTemplate = ({
 
   return (
     <div>
-      <FullWidthImage img={heroImage} title={title} subheading={subheading} />
+        <FramedFullScreenImage img={heroImage} title={"Let Me Know."} subheading={"more later"}/>
+        <FramedFullScreenImage img={heroImage} title={"Fun stuff"} subheading={"more later"}/>
       <section className="section section--gradient">
         <div className="container">
           <div className="section">
@@ -76,6 +76,8 @@ export const IndexPageTemplate = ({
 
 IndexPageTemplate.propTypes = {
   image: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+  sprite: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+  nframes: PropTypes.number,
   title: PropTypes.string,
   heading: PropTypes.string,
   subheading: PropTypes.string,
