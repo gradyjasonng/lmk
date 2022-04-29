@@ -1,22 +1,28 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { GatsbyImage } from "gatsby-plugin-image";
+import { Tween, ScrollTrigger, Timeline } from "react-gsap";
 
 export default function FramedFullScreenImage(props) {
   const {
     img,
     title,
     subheading,
-    imgPosition = "top left",
+    imgPosition = "center",
     children,
   } = props;
 
   return (
-    <React.Fragment>
+      <ScrollTrigger
+        start="top 50%"
+        end="top top"
+        scrub >
+          <Tween from={{padding: "10rem"}}>
       <div
-        className="margin-top-0 p-5"
+        className="margin-top-0"
         style={{
           display: "grid",
+          padding: "6rem",
           gridTemplate: "2rem 1fr 2rem / 2rem 1fr 2rem",
           boxSizing: "border-box",
           alignItems: "center",
@@ -96,7 +102,8 @@ export default function FramedFullScreenImage(props) {
           </div>
         )}
       </div>
-    </React.Fragment>
+      </Tween>
+      </ScrollTrigger>
   );
 }
 

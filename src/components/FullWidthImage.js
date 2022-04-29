@@ -4,11 +4,11 @@ import { GatsbyImage } from "gatsby-plugin-image";
 
 export default function FullWidthImage(props) {
   const {
-    height = "90vh",
+    height = "100vh",
     img,
     title,
     subheading,
-    imgPosition = "top left",
+    imgPosition = "center",
   } = props;
 
   return (

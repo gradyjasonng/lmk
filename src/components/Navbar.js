@@ -143,7 +143,7 @@ const Navbar = class extends React.Component {
 						</nav>
 					}
 				>
-					<Tween from={{ autoAlpha: 0, duration: 1 }} />
+					<Tween from={{ yPercent: -100, duration: 1 }} />
 					<Tween from={{ duration: 10 }} />
 				</Timeline>
 			</ScrollTrigger>

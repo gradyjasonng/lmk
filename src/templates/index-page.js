@@ -6,6 +6,7 @@ import Layout from "../components/Layout";
 import Features from "../components/Features";
 import BlogRoll from "../components/BlogRoll";
 import FramedFullScreenImage from "../components/FramedFullScreenImage";
+import FullWidthImage from "../components/FullWidthImage";
 
 // eslint-disable-next-line
 export const IndexPageTemplate = ({
@@ -21,7 +22,7 @@ export const IndexPageTemplate = ({
 
   return (
     <div>
-        <FramedFullScreenImage img={heroImage} title={"Let Me Know."} subheading={"more later"}/>
+        <FullWidthImage img={heroImage} title={"LMK"} subheading={"brief intro here"}/>
         <FramedFullScreenImage img={heroImage} title={"Fun stuff"} subheading={"more later"}/>
       <section className="section section--gradient">
         <div className="container">
